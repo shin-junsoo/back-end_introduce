@@ -4,11 +4,13 @@ from model import Todo
 todo_router = APIRouter()
 
 todo_list = []
+todo_counter = 0
 
 @todo_router.post("/todo")
 async def add_todo(todo: Todo) -> dict:
-    todo.id = len(todo_list)+1
     todo_list.append(todo)
+    global todo_counter
+    todo.id = todo_counter = todo_counter+1
     return{
         "msg" : "todo added successfully"
     }
